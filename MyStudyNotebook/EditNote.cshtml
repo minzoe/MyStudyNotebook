@@ -1,0 +1,98 @@
+﻿@{
+    Page.Title = "Edit a Note";
+    Layout = "~/_Layout.cshtml";
+
+    var book = "";
+    var chapter = "";
+    var verse = "";
+    var note = "";
+    var date = "";
+    var noteId = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+        {
+            noteId = Request.QueryString["ID"];
+            var db = Database.Open("MyStudyNotebookDatabase");
+            var dbCommand = "SELECT * FROM Journal WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, noteId);
+
+            if (row != null)
+            {
+                book = row.book;
+                chapter = row.chapter;
+                verse = row.verse;
+                note = row.note;
+                date = row.date;
+            }
+            else
+            {
+                Validation.AddFormError("No note was found for that ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No note was found for that ID.");
+        }
+    }
+
+    if (IsPost)
+    {
+        Validation.RequireField("book", "You must enter a book");
+        Validation.RequireField("chapter", "You must enter a chapter");
+        Validation.RequireField("verse", "You must enter a verse");
+        Validation.RequireField("note", "You must enter a note");
+
+        book = Request.Form["book"];
+        chapter = Request.Form["chapter"];
+        verse = Request.Form["verse"];
+        note = Request.Form["note"];
+        date = Request.Form["date"];
+        noteId = Request.Form["noteId"];
+
+        if (Validation.IsValid())
+        {
+
+            var db = Database.Open("MyStudyNotebookDatabase");
+            var insertCommand =
+                "UPDATE Journal SET book=@0, chapter=@1, verse=@2, note=@3, date=@4 WHERE Id=@5";
+            db.Execute(insertCommand, book, chapter, verse, note, date, noteId);
+            Response.Redirect("~/Default");
+        }
+    }
+}
+<h2>Edit a Note</h2>
+@Html.ValidationSummary()
+<form method="post">
+    <fieldset>
+        <legend>Note Details</legend>
+        <p>
+            <label for="book">Book:</label>
+            <input type="text" name="book" value="@book" />
+            @Html.ValidationMessage("book")
+        </p>
+        <p>
+            <label for="chapter">Chapter:</label>
+            <input type="text" name="chapter" value="@chapter" />
+            @Html.ValidationMessage("chapter")
+        </p>
+        <p>
+            <label for="verse">Verse:</label>
+            <input type="text" name="verse" value="@verse" />
+            @Html.ValidationMessage("verse")
+        </p>
+        <p>
+            <label for="note">Note:</label>
+            <input type="text" name="note" value="@note" />
+            @Html.ValidationMessage("note")
+        </p>
+        <p>
+            <label for="date">Date:</label>
+            <input type="text" name="date" value="@date" />
+        </p>
+        <input type="hidden" name="noteid" value="@noteId" />
+        <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+    </fieldset>
+</form>
+<p><a href="~/Default.cshtml">Return to view</a></p>

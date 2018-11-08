@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    <link href="~/Styles/Notebook.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div>
+        <header>
+            <h1>My Study Notebook</h1>
+        </header>
+        <main>
+            @RenderBody()
+        </main>
+        <footer>
+            &copy; @DateTime.Now.Year My Study Notebook
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@{
+    Page.Title = "Delete a Note";
+    Layout = "~/_Layout.cshtml";
+
+    var book = "";
+    var chapter = "";
+    var verse = "";
+    var note = "";
+    var date = "";
+    var noteId = "";
+
+    if (!IsPost)
+    {
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+        {
+            noteId = Request.QueryString["ID"];
+            var db = Database.Open("MyStudyNotebookDatabase");
+            var dbCommand = "SELECT * FROM Journal WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, noteId);
+
+            if (row != null)
+            {
+                book = row.book;
+                chapter = row.chapter;
+                verse = row.verse;
+                note = row.note;
+                date = row.date;
+            }
+            else
+            {
+                Validation.AddFormError("No note was found for that ID.");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("No note was found for that ID.");
+        }
+    }
+
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        noteId = Request.Form["noteId"];
+       
+       var db = Database.Open("MyStudyNotebookDatabase");
+       var deleteCommand =
+            "DELETE FROM Journal WHERE Id=@0";
+       db.Execute(deleteCommand, noteId);
+       Response.Redirect("~/Default");
+    }
+}
+<h2>Delete a Note</h2>
+<form method="post">
+    <fieldset>
+        <legend>Note Details</legend>
+        <p>
+            <span>Book:</span>
+            <span>@book</span>
+        </p>
+        <p>
+            <span>Chapter:</span>
+            <span>@chapter</span>
+        </p>
+        <p>
+            <span>Verse:</span>
+            <span>@verse</span>
+        </p>
+        <p>
+            <span>Note:</span>
+            <span>@note</span>
+        </p>
+        <p>
+            <span>Date:</span>
+            <span>@date</span>
+        </p>
+        <input type="hidden" name="noteid" value="@noteId" />
+        <p><input type="submit" name="buttonDelete" value="Delete Note" /></p>
+    </fieldset>
+</form>
+<p><a href="~/Default.cshtml">Return to view</a></p>
