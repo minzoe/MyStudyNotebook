@@ -1,8 +1,11 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+body {
     width: 50%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    font-family: 'Roboto Mono', monospace;
 }
 
 /*.default {

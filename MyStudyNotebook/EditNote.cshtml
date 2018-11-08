@@ -69,27 +69,27 @@
         <legend>Note Details</legend>
         <p>
             <label for="book">Book:</label>
-            <input type="text" name="book" value="@book" />
+            <input type="text" name="book" id="book" value="@book" />
             @Html.ValidationMessage("book")
         </p>
         <p>
             <label for="chapter">Chapter:</label>
-            <input type="text" name="chapter" value="@chapter" />
+            <input type="text" name="chapter" id="chapter" value="@chapter" />
             @Html.ValidationMessage("chapter")
         </p>
         <p>
             <label for="verse">Verse:</label>
-            <input type="text" name="verse" value="@verse" />
+            <input type="text" name="verse" id="verse" value="@verse" />
             @Html.ValidationMessage("verse")
         </p>
         <p>
             <label for="note">Note:</label>
-            <input type="text" name="note" value="@note" />
+            <input type="text" name="note" id="note" value="@note" />
             @Html.ValidationMessage("note")
         </p>
         <p>
             <label for="date">Date:</label>
-            <input type="text" name="date" value="@date" />
+            <input type="text" name="date" id="date" value="@date" />
         </p>
         <input type="hidden" name="noteid" value="@noteId" />
         <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>

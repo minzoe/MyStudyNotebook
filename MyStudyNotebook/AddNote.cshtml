@@ -37,22 +37,22 @@
         <legend>Note Details</legend>
         <p>
             <label for="book">Book:</label>
-            <input type="text" name="book" value="@Request.Form["book"]" />
+            <input type="text" name="book" id="book" value="@Request.Form["book"]" />
             @Html.ValidationMessage("book")
         </p>
         <p>
             <label for="chapter">Chapter:</label>
-            <input type="text" name="chapter" value="@Request.Form["chapter"]" />
+            <input type="text" name="chapter" id="chapter" value="@Request.Form["chapter"]" />
             @Html.ValidationMessage("chapter")
         </p>
         <p>
             <label for="verse">Verse:</label>
-            <input type="text" name="verse" value="@Request.Form["verse"]" />
+            <input type="text" name="verse" id="verse" value="@Request.Form["verse"]" />
             @Html.ValidationMessage("verse")
         </p>
         <p>
             <label for="note">Note:</label>
-            <input type="text" name="note" value="@Request.Form["note"]" />
+            <input type="text" name="note" id="note" value="@Request.Form["note"]" />
             @Html.ValidationMessage("note")
         </p>
         <p><input type="hidden" name="date" value="@Request.Form["date"] @DateTime.Now.ToShortDateString()" /></p>

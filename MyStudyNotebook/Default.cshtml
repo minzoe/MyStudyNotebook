@@ -21,16 +21,16 @@
     var selectedData = db.Query(selectCommand, searchTerm);
     var grid = new WebGrid(source: selectedData, defaultSort: "book", rowsPerPage: 5);
 }
-<form method="get" class="default">
+<form method="get">
     <div>
         <label for="searchBook">Book to look for:</label>
-        <input type="text" name="searchBook" value="@Request.QueryString["searchBook"]" />
+        <input type="text" name="searchBook" id="searchBook" value="@Request.QueryString["searchBook"]" />
         <input type="submit" value="Search Book" />
     </div>
 
     <div>
         <label for="searchKeyword">Keyword to look for:</label>
-        <input type="text" name="searchKeyword" value="@Request.QueryString["searchKeyword"]" />
+        <input type="text" name="searchKeyword" id="searchKeyword" value="@Request.QueryString["searchKeyword"]" />
         <input type="submit" value="Search Keyword" />
     </div>
 </form>
